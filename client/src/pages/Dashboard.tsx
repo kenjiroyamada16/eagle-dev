@@ -1,54 +1,33 @@
 import { response } from "express";
 import React, { useEffect, useState } from "react"
 import { Student } from "../../../server/entity";
+import axios from 'axios'
 
-function Dashboard(){
-    const [apiData, setApiData] = useState<Student[]>([])
+const Dashboard = () =>{
+    const [api, setApi] = useState<Student[]>([])
+    let isDocValid = false
 
     useEffect(() => {
-        fetch("http://localhost:3001/dashboard", {
-            method: 'get',
-            mode: 'no-cors',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                "Access-Control-Allow-Origin" : "*", 
-                "Access-Control-Allow-Credentials" : "true" 
-              },
-          })
-          .then((res) => res.json())
-          .then((data) => setApiData(data))
-          .then(() => createTable(null))
-          .then((data) => console.log(data))
+        axios.get('http://localhost:8080/table')
+            .then(res => {
+                const students = res.data
+                setApi(students)
+            })
+            .then(res => emptyCheck(res))
+            .catch((err) => console.log(err))
+
       }, [])
 
-        const table = document.getElementById('students-table')
-        let row : string = ''
-
-        const createTable = (e : any) =>{
-            if (e == null){
-                for (let i = 0; i < apiData.length; i++){
-                    row = `<tr>
-                                    <th>
-                                        ${apiData[i].name.toString()}
-                                    </th>
-                                    <th>
-                                        ${apiData[i].age.toString()}
-                                    </th>
-                                    <th>
-                                        ${apiData[i].language.toString()}
-                                    </th>
-                            </tr>`
-                    table!!.innerHTML += row
-                }
-            } else {
-                row = `<tr>
-                            <th>Erro</th>   
-                        </tr>`
-                table!!.innerHTML = row
-            }
-            console.log(row)
+    const emptyCheck = (api : any) => {
+        if(JSON.stringify(api) === '[{}]'){
+            return true
+        } else {
+            return false
+        }
     }
+
+    emptyCheck(api) ? isDocValid = false : isDocValid = true
+    
     return(
         <div className="main">
             <h1>Tabela de alunos</h1>
@@ -62,7 +41,21 @@ function Dashboard(){
                     </tr>
                 </thead>
                 <tbody>
-                   { row }
+                    { 
+                       isDocValid ? api.map((std, i) => (
+                            <tr key={i}>
+                                <td>{ std.name ?  std.name : "Não informado" }</td>
+                                <td>{ std.age ?  std.age : "Não informado" }</td>
+                                <td>{ std.language ?  std.language : "Nenhuma" }</td>
+                                <td><button className="edit-btn">Editar</button></td>
+                                <td><button className="delete-btn">Excluir</button></td>
+                            </tr>
+                        ))
+                        :
+                            <tr>
+                                <td colSpan={5}>Nenhum registro de aluno</td>
+                            </tr>
+                    }
                 </tbody>
             </table>
         </div>
