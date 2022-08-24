@@ -24,5 +24,5 @@
     "src",
     "../server",
     "app/ts/**/*"
-  ]
+, "src/index.tsx"  ]
 }
