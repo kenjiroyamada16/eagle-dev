@@ -17,7 +17,12 @@
 }
 
 body{
-  background-color: rgba(64, 0, 167, 0.856);
+  background-image: linear-gradient(
+        to right bottom,
+        rgba(128, 0, 167, 0.808) 10%,
+      rgba(64, 0, 167, 0.856) 50%,
+      rgba(167, 0, 139, 0.808) 80%
+     );
   display: flex;
   justify-content: center;
   height: 100vh;
@@ -144,7 +149,7 @@ body{
   border-top: 1px solid rgba(255, 255, 255, 0.342);
 }
 
-/*-----V--Login--V----*/
+/*-----V--Login e registro--V----*/
 
 .login-main, .register-main{
   display: flex;
@@ -183,9 +188,11 @@ input {
   height: 48px;
   width:250px;
   color: #f0f0f0;
-  font-size: 14px;
+  font-size: 1.3rem;
   padding-left: 20px;
+  font-family: var(--ft-cormorant);
   box-shadow: none;
+  transition: 0.2s;
 }
 
 input::placeholder{
@@ -199,19 +206,25 @@ label{
   position: absolute;
   top: 0;
   left: 0;
+  font-family: var(--ft-montserrat);
   pointer-events: none;
-  transition: 0.2s ease;
+  transition: 0.2s ease, 0.1s background-color ease-in-out;
 }
 
 input:focus + label, input:valid + label {
   font-size: 12px;
   top: -5px;
   left:10px;
-  background: rgba(91,37,179,255);
+  background: transparent;
+  backdrop-filter: blur(100px);
   padding: 0px 5px 0px 5px;
 }
 
-input:focus{ outline: none; }
+input:focus{ 
+  outline: none;
+  border: 2.5px solid rgba(153, 90, 255, 0.863);
+  box-shadow: 3.5px 3.5px rgba(183, 106, 255, 0.315), inset 1px 1px rgba(153, 90, 255, 0.863), inset -1px -1px rgba(153, 90, 255, 0.863);
+}
 
 .btnLogin{
   background-color: transparent;
@@ -239,4 +252,355 @@ input:focus{ outline: none; }
   overflow-wrap: break-word;
 }
 
-/*-----^--Login--^----*/
+/*-----^--Login e registro--^----*/
+
+/*-----V-------Dashboard------V----*/
+
+.dashboard-main{
+  padding: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.342);
+  border-radius: 20px;
+}
+
+.table-title{
+  text-align: center;
+  margin-bottom: 20px;
+  font-family: var(--ft-montserrat-alt);
+  font-size: 1.7rem;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.table-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#students-table{
+  padding: 25px;
+  margin: 20px 0;
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+  overflow: auto;
+  height: 400px;
+  border-spacing: 0;
+  display: inline-block;
+}
+
+#students-table::-webkit-scrollbar{
+  width: 5px;
+  border-radius: 10px;
+}
+
+#students-table::-webkit-scrollbar-track {
+  background-image: linear-gradient(rgb(242, 175, 255), rgb(232, 157, 255), rgb(253, 72, 223), rgb(225, 110, 248));
+  border-radius: 5px;
+}
+
+#students-table::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  border: 0;
+  transition: 0.3s;
+  background-clip: content-box;
+  background-image: linear-gradient(rgb(173, 27, 202), rgb(111, 34, 255));
+}
+
+#students-table.morewidth::-webkit-scrollbar{
+  width: 10px;
+}
+
+#students-table::-webkit-scrollbar-thumb:hover {
+  background-image: linear-gradient(rgb(209, 40, 243), rgb(155, 68, 255));
+  background-clip: border-box;
+  cursor: pointer;
+}
+
+#students-table tbody{
+  height: 300px;
+  overflow: auto;
+}
+
+btn:focus, btn:active{
+  outline: none;
+}
+
+#students-table thead{
+  width: 100%;
+}
+
+#students-table thead tr{
+  background-color: #5513aa;
+  color: white;
+  font-family: var(--ft-montserrat);
+  text-align: left;
+  font-size: 0.9rem;
+  border-bottom: thin solid rgb(177, 150, 252);
+}
+
+#students-table th, #students-table td{
+  padding: 15px 20px;
+  color: white;
+}
+
+#students-table tbody td{
+  font-family: var(--ft-poppins);
+  font-size: 1rem;
+}
+
+#students-table tbody tr{
+  transition: 0.3s;
+  height: 50px;
+}
+
+#students-table tbody tr:nth-child(even){
+  background-image: linear-gradient(to right, rgb(111, 28, 245) 40%, rgba(87, 0, 128, 0.575) 60%, transparent);
+  background-repeat: no-repeat;
+}
+
+#students-table tbody tr:hover{
+  background-color: rgba(113, 37, 212, 0.741);
+  user-select: none;
+  background-image: none;
+}
+
+.btn-edit{
+  background-color: rgb(119, 0, 255);
+  padding: 8px;
+  font-family: var(--ft-montserrat);
+  border-radius: 10px;
+  font-size: 1rem;
+  width: 100px;
+  color: rgb(255, 255, 255);
+  border: thin solid rgba(255, 255, 255, 0.452);
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.btn-edit:hover{
+  background-color: rgb(245, 223, 255);
+  color: rgb(130, 77, 255);
+}
+
+.btn-delete{
+  background-color: rgb(255, 0, 140);
+  padding: 8px;
+  font-family: var(--ft-montserrat);
+  border-radius: 10px;
+  font-size: 1rem;
+  width: 100px;
+  color: rgb(255, 255, 255);
+  border: thin solid rgba(255, 255, 255, 0.452);
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.btn-delete:hover{
+  background-color: rgb(255, 223, 248);
+  color: rgb(236, 91, 255);
+}
+
+.btn-create{
+  background-color: transparent;
+  padding: 10px;
+  font-family: var(--ft-montserrat-alt);
+  border-radius: 10px;
+  font-size: 1.2rem;
+  width: 200px;
+  color: rgb(255, 255, 255);
+  border: thin solid rgba(255, 255, 255, 0.452);
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.submit-edit{
+  background-color: rgb(155, 5, 224);
+  padding: 10px;
+  font-family: var(--ft-montserrat);
+  border-radius: 10px;
+  font-size: 1.2rem;
+  width: 200px;
+  color: rgb(255, 255, 255);
+  border: thin solid rgba(255, 255, 255, 0.452);
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.submit-edit:hover{
+  background-color: rgb(255, 255, 255);
+  color: rgb(124, 23, 207);
+}
+
+.btn-create:hover{
+  background-color: rgb(255, 255, 255);
+  color: rgb(124, 23, 207);
+}
+
+/*-----^-------Dashboard------^----*/
+
+/*---------V------Create------V------*/
+
+.create-main{
+  display: flex;
+  flex-direction: column;
+  box-shadow: 1px 5px rgba(255, 255, 255, 0.205), -3px -7px rgba(255, 255, 255, 0.26);
+  padding: 30px;
+  border-radius: 10px;
+  transition: 0.4s;
+}
+
+.create-form-container{
+  transition: 0.5s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.create-form-title{
+  color: white;
+  font-family: var(--ft-poppins);
+  font-size: 1.5rem;
+  margin: 20px 0;
+}
+
+.label-begg{
+  color: white;
+  text-align: left;
+  width: 100%;
+  font-family: var(--ft-poppins);
+  position: relative;
+}
+
+.selector-container{
+  width: 300px;
+  position: relative;
+  height: 45px;
+  margin-bottom: 20px;
+}
+
+select{
+  appearance: none;
+  background-color: transparent;
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+  font-family: var(--ft-montserrat);
+  color: white;
+  padding: 10px 12px;
+  width: 100%;
+  border: thin solid rgba(255, 255, 255, 0.466);
+  display: grid;
+  cursor: pointer;
+  width: 100%;
+}
+
+.selector-container::after{
+  content: '';
+  width: 20px;
+  height: 20px;
+  right: 0;
+  bottom: 0px;
+  transform: translate(-10px,-5px) rotate(180deg);
+  background-color: rgb(255, 255, 255);
+  clip-path: polygon(50% 65%, 18% 100%, 84% 100%);  position: absolute;
+}
+
+select option{
+  background-color: rgba(91,37,179,255);
+}
+
+select>option:checked{
+  background-color: rgb(134, 59, 255) !important;
+}
+
+select:focus{
+  outline: none;
+}
+
+.submit-create{
+  background-color: transparent;
+  padding: 10px;
+  font-family: var(--ft-montserrat-alt);
+  border-radius: 10px;
+  font-size: 1.2rem;
+  width: 200px;
+  color: rgb(255, 255, 255);
+  border: thin solid rgba(255, 255, 255, 0.452);
+  transition: 0.3s;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.create-err{
+  color: rgb(255, 0, 76);
+  font-family: var(--ft-cormorant);
+  font-size: 1.2rem;
+  text-align: center;
+  display: none;
+}
+
+.submit-create:hover{
+  background-color: rgb(255, 255, 255);
+  color: rgb(124, 23, 207);
+}
+
+/*---------^------Create------^------*/
+
+/*---------V------Edit-----------V----*/
+
+.edit-main{
+  border-radius: 10px;
+  box-shadow: 1px 5px rgba(255, 255, 255, 0.205), -3px -7px rgba(255, 255, 255, 0.26);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 500px;
+}
+
+.edit-form-title{
+  margin: 20px 0;
+  font-family: var(--ft-montserrat);
+  color: white;
+  font-weight: bold;
+  font-size: 1.4rem;
+}
+
+
+.student-email{
+  margin: 10px 0;
+  font-family: var(--ft-poppins);
+  color: rgb(255, 211, 249);
+  font-size: 1.2rem;
+}
+
+.edit-form-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+input:focus + .label-edit, input:valid + .label-edit {
+  font-size: 12px;
+  top: -5px;
+  left:10px;
+  background: transparent;
+  backdrop-filter: blur(10px);
+  padding: 0px 5px 0px 5px;
+}
+
+.edit-form-container .selector-container{
+  width: 300px;
+  position: relative;
+  height: 45px;
+  margin-bottom: 40px;
+}
+
+.edit-form-container .selector-container::after{
+  transform: translate(-5px,20px) rotate(180deg);
+}
+
+/*---------^------Edit-----------^----*/

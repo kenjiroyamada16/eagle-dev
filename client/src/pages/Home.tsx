@@ -11,7 +11,7 @@ const Home = () => {
 
     useEffect(()=>{
         signOut(auth)
-    })
+    },[])
 
     const handleSwap = () =>{
         setPrevAction(action)

@@ -62,7 +62,7 @@ export const Register = () => {
   return (
     <div className='register-main'>
         <p className="form-title">Registre-se</p>
-        <p className="form-subh1">Para começar seus registros</p>
+        <p className="form-subh1">Para começar seus cadastros</p>
         <div className="form">
         <div className="input-wrap">
                 <input 

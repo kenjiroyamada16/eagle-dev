@@ -3,14 +3,14 @@ import { getFirestore } from 'firebase/firestore'
 import { getAuth } from 'firebase/auth';
 
 export const firebaseConfig = {
-    apiKey: "AIzaSyD82RdXRohbJl6r5kIgPTzSgHhth8FuVjY",
-    authDomain: "crud-react-b2dc8.firebaseapp.com",
-    projectId: "crud-react-b2dc8",
-    storageBucket: "crud-react-b2dc8.appspot.com",
-    messagingSenderId: "538773658201",
-    appId: "1:538773658201:web:fd807a4c5d7547d472af48",
-    measurementId: "G-70V8TJCE4Y"
-  };
+  apiKey: "AIzaSyB3w94x_BjGOZGLhrg_GOl0cx-RssWvUIo",
+  authDomain: "eagle-dev-test-2d9be.firebaseapp.com",
+  projectId: "eagle-dev-test-2d9be",
+  storageBucket: "eagle-dev-test-2d9be.appspot.com",
+  messagingSenderId: "447041672401",
+  appId: "1:447041672401:web:b50005d9ba01833ed961f0",
+  measurementId: "G-GB620F9QSC"
+};
 
 export const application = initializeApp(firebaseConfig)
 export const auth = getAuth(application)

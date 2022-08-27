@@ -2,6 +2,8 @@ import express from 'express'
 import { Student } from './entity';
 import { auth, application } from '../client/src/firebase';
 import { getAuth, onAuthStateChanged, UserCredential } from 'firebase/auth'
+import { doc, getDoc } from 'firebase/firestore';
+import { async } from '@firebase/util';
 
 const admin = require("firebase-admin");
 const cors = require('cors')
@@ -37,10 +39,32 @@ app.post('/create', async (req, res)=>{
                 age: req.body.age,
                 language: req.body.language
             }
-            const response = await stdRef.doc(id).set(std)
-            res.send(response)
+            //Talvez seja útil VVVVVVV
+            /* const stdDoc = stdRef.doc(id)
+            stdDoc.get()
+                .then((docSnapshot : any)=>{
+                    if(docSnapshot.exists){
+                        stdDoc.onSnapshot((doc : any)=>{
+                            res.status(400).send({
+                                message: 'duplicate-email'
+                            })
+                            return
+                        })
+                    } else{
+                        const response = stdDoc.set(std)
+                        res.send(response)
+                    }
+                })  */
+            if(!stdRef.doc(id).get().exists){
+                const response = await stdRef.doc(id).set(std)
+                res.send(response)
+            } else{
+                res.status(400).send({
+                    message: 'duplicate-email'
+                })
+            }
         } catch(e) {
-            res.send('deu ruim')
+            res.status(400).send()
         }
 })
 
@@ -72,6 +96,21 @@ app.get('/table', async (req, res) =>{
         } catch (e){
             res.send('deu ruim')
         }
+})
+
+app.get('/user/:id', async (req, res) =>{
+    const id = req.params.id
+    try{
+        stdRef.doc(id).get()
+            .then((snapshot : any)=>{
+                res.send(snapshot.data())
+                return
+            })
+        
+    } catch (e){
+        res.status(400).send('deu ruim')
+        return
+    }
 })
 
 app.delete('/delete/:id', async (req, res) =>{
