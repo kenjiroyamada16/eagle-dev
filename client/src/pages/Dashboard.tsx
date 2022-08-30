@@ -2,7 +2,7 @@ import { response } from "express";
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
-import { Student } from "../../../server/entity";
+import { Student } from "../entity/entity";
 import axios from 'axios'
 
 const $ = require('jquery')
@@ -13,7 +13,7 @@ const Dashboard = (navigation : any) =>{
     let isDocValid = false
 
     useEffect(() => {
-        axios.get('http://localhost:8080/table')
+        axios.get('https://eagle-dev-nico.herokuapp.com/table')
             .then(res => {
                 const students = res.data
                 setApi(students)
@@ -33,7 +33,7 @@ const Dashboard = (navigation : any) =>{
     emptyCheck(api) ? isDocValid = false : isDocValid = true
 
     const handleDelete = (email : any) =>{
-        axios.delete(`http://localhost:8080/delete/${email}`)
+        axios.delete(`https://eagle-dev-nico.herokuapp.com/delete/${email}`)
             .then(()=>window.location.reload())
     }
 
