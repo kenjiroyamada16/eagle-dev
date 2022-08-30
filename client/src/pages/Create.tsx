@@ -17,7 +17,7 @@ const Create = () => {
     const navigate = useNavigate()
 
     const registerStd = () =>{
-        axios.post('http://localhost:8080/create', {
+        axios.post('https://eagle-dev-nico.herokuapp.com/create', {
             email: stdEmail,
             name: stdName,
             age: stdAge,
