@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { Student } from '../../../server/entity'
+import { Student } from '../entity/entity'
 import axios from 'axios'
 
 const Edit = (props : any) => {
@@ -14,7 +14,7 @@ const Edit = (props : any) => {
     const [jsonLanguage, setJsonLanguage] = useState('')
 
     useEffect(()=>{
-        axios.get(`http://localhost:8080/user/${email}`)
+        axios.get(`https://eagle-dev-nico.herokuapp.com/user/${email}`)
             .then(res =>{
                 setStudent(res.data)
                 setJsonName(res.data.name)
@@ -25,7 +25,7 @@ const Edit = (props : any) => {
     },[])
 
     const editStd = () =>{
-        axios.put(`http://localhost:8080/edit/${email}`,{
+        axios.put(`https://eagle-dev-nico.herokuapp.com/edit/${email}`,{
             name: jsonName,
             age: jsonAge,
             language: jsonLanguage
